@@ -1,0 +1,110 @@
+.userSettingsWrapper{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    width: 100%;
+    margin-top: 30px;
+}
+
+.userSettingsWrapper .accountControls{
+    display: flex;
+    align-items: center;
+    width: 40%;
+    justify-content: space-between;
+
+}
+.userSettingsWrapper .userDetails{
+    width: 40%;
+    margin: 20px;
+    padding: 10px;
+}
+
+.accountControls .updateAccDetails{
+    color: green;
+    display: inline-block;
+    cursor: pointer;
+}
+.accountControls .updateAccDetails:hover{
+    color: rgb(5, 202, 5)
+}
+
+.accountControls .updateAccDetails .updateIcon,
+.accountControls .deleteAccount .deleteIcon
+{
+    margin: 0px 5px;
+}
+
+.accountControls .deleteAccount{
+    display: inline-block;
+    color: red;
+    cursor: pointer;
+}
+.accountControls .deleteAccount:hover{
+    color: rgb(255, 126, 126)
+}
+
+.userDetails .mediaDetails{
+    display: flex;
+    flex-direction: row;
+    /* justify-content: center; */
+    align-items: center;
+}
+
+.mediaDetails .lblProfilePicture{
+    display: inline-block;
+}
+.mediaDetails .profilePicture{
+    width: 40px;
+    height: 40px;
+    border-radius: 40px;
+    border: 1px solid rgb(170, 169, 169);
+    margin: 2px;
+    padding: 2px;
+}
+
+.mediaDetails .imageUpload{
+    background-color: rgb(170, 169, 169);
+    height: 20px;
+    width: 20px;
+    padding: 2px;
+    border-radius: 20px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+}
+
+.userDetails .userCredentials{
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    width: 100%;
+}
+
+.userDetails .username,
+.userDetails .email,
+.userDetails .password{
+    width: 100%;
+    border: none;
+    border-bottom: 1px solid rgb(189, 187, 187);
+    margin-bottom: 10px;
+}
+
+.userCredentials input:focus{
+    outline: none;
+}
+
+.userDetails .submitForm{
+    border: none;
+    background-color: green;
+    border-radius: 5px;
+    padding: 5px 20px;
+    margin: 5px;
+    cursor: pointer;
+    color: white;
+}
+
+.userDetails .submitForm:hover{
+    background-color: rgb(5, 202, 5);
+}

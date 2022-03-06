@@ -1,0 +1,84 @@
+.writePost{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    margin-top: 20px;
+}
+
+.uploadedCoverPhoto{
+    width: 75vw;
+    height: 250px;
+    border-radius: 8px;
+    margin: 5px;
+    object-fit:cover;
+    background-position: center;
+    display: flex;
+    justify-content: center;
+    align-items:center;
+}
+
+.form-writePost {
+  /* display: flex;
+  flex-direction: column;
+  justify-content: center; */
+  align-items: center;
+  position: relative;
+} 
+
+.writePostGroup1 {
+  display: flex;
+  flex-direction: row;
+}
+
+.writePostGroup1 .uploadButton {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 25px;
+  height: 25px;
+  border-radius: 52px;
+  border: 1px solid gray;
+  padding: 2px;
+  margin: 2px 4px 3px 1px;
+  font-size: 20px;
+  color: gray;
+  cursor: pointer;
+}
+
+.writePostGroup1 .title {
+  border: none;
+  font-size: 30px;
+  padding-left: 20px;
+  width: 70vw;
+}
+
+.writePostGroup1 .title:focus {
+  outline: none;
+}
+
+.writePostGroup2 .postDescription {
+    margin-top: 20px;
+  font-size: 20px;
+  border: none;
+  width: 70vw;
+}
+
+.writePostGroup2 .postDescription:focus {
+  outline: none;
+}
+
+.btnSubmitPost{
+    position: absolute;
+    top: 30px;
+    right: 10px;
+    background-color: teal;
+    padding: 10px;
+    border-radius: 20px;
+    border: none;
+}
+
+.btnSubmitPost:hover{
+    background-color: rgb(88, 189, 189);
+    /* box-shadow: 1cm black */
+}
