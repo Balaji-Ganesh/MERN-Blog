@@ -14,3 +14,13 @@
 - In the login and register pages, getting the same background, even though the baackground-url's are different.
 
 -- Reached #MileStone1, by **grace**.
+
+## Tools
+
+- Context API: For state management, can also use other tools like Redux.
+  - **Why..??**
+  - The user information is needed in almost all the cases. Like..
+    - In topbar, for settings - profile picture -- user settings
+    - While viewing posts, for determining the rights
+    - for writing a new post, whether logged in or not.
+  - Can do via, updating the props.. but that's not the best practise.

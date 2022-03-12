@@ -1,67 +1,59 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
+import { useLocation } from "react-router-dom";
+import axios from "axios";
+import { Link } from "react-router-dom";
 import "./viewPost.css";
 
 export default function ViewPost() {
+  const location = useLocation(); // to know the path (by -self..!!)
+  //console.log(location.pathname.split("/")[2]);
+  const postId = location.pathname.split("/")[2];
+
+  /// for updation of details in the post, after retrieval from server..
+  const [post, setPost] = useState({});
+
+  useEffect(() => {
+    const fetchPost = async () => {
+      const retrievedPost = await axios.get("/posts/" + postId);
+      setPost(retrievedPost.data);
+      console.log(retrievedPost.data);
+    };
+
+    // make a call..
+    fetchPost();
+  }, [postId]); // this is must, else going into loop..
+
   return (
     <div className="viewPost">
       <div className="postInfo">
-        <img
-          src="https://images.unsplash.com/photo-1645389301578-256d15903114?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=974&q=80"
-          alt="View post image"
-          className="viewPost-image"
-        />
+        {post.photoUrl && (
+          <img
+            src={post.photoUrl}
+            alt="View post image"
+            className="viewPost-image"
+          />
+        )}
         <div className="postTitle">
-          Lorem Ipsum dolar sit amet
+          {post.title}
           <div className="postEdit">
-            <i class="postEdit-icon fa-solid fa-pen-to-square"></i>
-            <i class="postEdit-icon fa-solid fa-trash-can"></i>
+            <i className="postEdit-icon fa-solid fa-pen-to-square"></i>
+            <i className="postEdit-icon fa-solid fa-trash-can"></i>
           </div>
         </div>
         <div className="postMetaInfo">
           <div className="postAuthor">
-            Author: <b>Govind</b>
+            Author:
+            <Link to={`/?user=${post.username}`} className = "link">
+              <b>{post.username}</b>
+            </Link>
           </div>
-          <div className="postTimeStamp">1 hour ago</div>
+          <div className="postTimeStamp">
+            {new Date(post.createdAt).toDateString()}
+          </div>
         </div>
       </div>
       <div className="postContent">
-        <p>
-          Lorem ipsum dolor sit amet, consectetur adipisicing elit. Cum
-          cupiditate pariatur, corporis voluptates voluptate doloribus in
-          repellendus, reprehenderit ex quod fugiat itaque magnam similique
-          veritatis veniam harum saepe quos sint. Lorem ipsum dolor sit amet
-          consectetur adipisicing elit.
-          <br />
-          Aspernatur officia dolore nulla excepturi aliquid odit molestias. Sint
-          maxime dolores ullam expedita possimus dolorem atque unde quidem,
-          omnis, id quasi eum?
-          <br />
-          Lorem ipsum dolor sit amet, consectetur adipisicing elit. Cum
-          cupiditate pariatur, corporis voluptates voluptate doloribus in
-          repellendus, reprehenderit ex quod fugiat itaque magnam similique
-          veritatis veniam harum saepe quos sint. Lorem ipsum dolor sit amet
-          consectetur adipisicing elit.
-          <br />
-          Aspernatur officia dolore nulla excepturi aliquid odit molestias. Sint
-          maxime dolores ullam expedita possimus dolorem atque unde quidem,
-          omnis, id quasi eum? Lorem ipsum dolor sit amet, consectetur
-          adipisicing elit. Cum cupiditate pariatur, corporis voluptates
-          voluptate doloribus in repellendus, reprehenderit ex quod fugiat
-          itaque magnam similique veritatis veniam harum saepe quos sint. Lorem
-          ipsum dolor sit amet consectetur adipisicing elit.
-          <br />
-          Aspernatur officia dolore nulla excepturi aliquid odit molestias. Sint
-          maxime dolores ullam expedita possimus dolorem atque unde quidem,
-          omnis, id quasi eum?Lorem ipsum dolor sit amet, consectetur
-          adipisicing elit. Cum cupiditate pariatur, corporis voluptates
-          voluptate doloribus in repellendus, reprehenderit ex quod fugiat
-          itaque magnam similique veritatis veniam harum saepe quos sint. Lorem
-          ipsum dolor sit amet consectetur adipisicing elit.
-          <br />
-          Aspernatur officia dolore nulla excepturi aliquid odit molestias. Sint
-          maxime dolores ullam expedita possimus dolorem atque unde quidem,
-          omnis, id quasi eum?
-        </p>
+        <p>{post.description}</p>
       </div>
     </div>
   );

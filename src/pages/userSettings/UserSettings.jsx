@@ -6,11 +6,11 @@ export default function UserSettings() {
     <div className="userSettingsWrapper">
       <div className="accountControls">
         <span className="updateAccDetails">
-          <i class="updateIcon fa-solid fa-pen-to-square"></i>Update Account
+          <i className="updateIcon fa-solid fa-pen-to-square"></i>Update Account
           details
         </span>
         <span className="deleteAccount">
-          <i class="deleteIcon fa-solid fa-trash-can"></i>Delete Account
+          <i className="deleteIcon fa-solid fa-trash-can"></i>Delete Account
         </span>
       </div>
       <form className="userDetails">
@@ -24,7 +24,7 @@ export default function UserSettings() {
             className="profilePicture"
           ></img>
           <label htmlFor="imageUpload">
-            <i class="imageUpload fa-solid fa-circle-user"></i>
+            <i className="imageUpload fa-solid fa-circle-user"></i>
           </label>
           <input type="file" id="imageUpload" style={{ display: "none" }} />
         </div>
@@ -32,14 +32,24 @@ export default function UserSettings() {
           <label htmlFor="username" className="lblUsername">
             Username
           </label>
-          <input type="text" id="username" name="username" className="username" />
+          <input
+            type="text"
+            id="username"
+            name="username"
+            className="username"
+          />
           <label htmlFor="userEmail" className="lblEmail">
             E-mail
           </label>
           <input type="email" id="userEmail" name="email" className="email" />
           <label htmlFor="password"></label>
           <label htmlFor="userPassword">Password</label>
-          <input type="password" id="userPassword" name="password" className="password" />
+          <input
+            type="password"
+            id="userPassword"
+            name="password"
+            className="password"
+          />
         </div>
         <input type="submit" value="Submit" className="submitForm" />
       </form>

@@ -10,7 +10,7 @@ import { BrowserRouter, Routes, Route, Link } from 'react-router-dom';
 
 
 function App() {
-  const userLoginStatus = true; // pseudo user..
+  const userLoginStatus = false; // pseudo user..
   return (
     <div className="App">
       <BrowserRouter>
