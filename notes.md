@@ -24,3 +24,12 @@
     - While viewing posts, for determining the rights
     - for writing a new post, whether logged in or not.
   - Can do via, updating the props.. but that's not the best practise.
+
+## Notes on contextAPI
+- Before logging in, the `INITIAL_STATE` in `Context.js` will be default.
+- Login process in 3 actions..
+  1. Enters details and clicks on "Login". Now it might result in action-2 or action-3.
+  2. When the details are correct, and no problem at server or database(MongoDB), will get the details.
+  3. When **either** details are incorrect or some issue at server, failure. Now we set the `error` to `true`.
+- All these actions are **LISTED** in `Actions.js`.
+- The states are updated based on `Action.js` in `Reducer.js`
