@@ -19,3 +19,10 @@ Unable to upload the imae. [Refer](https://youtu.be/OML9f6LXUUs?t=4386) -- done 
   - The UI can be improved.
 
 Also check the CLIENT's `notes.md`.
+
+## Track report..
+
+- MileStone1: Basic React UI
+- MileStone2: Node.js REST API
+- MileStone3 (Upgrade of MileStone1): Functional UI.
+- By Grace, finished on 18th March, 2022 - Friday (Happy HOLI..!!)
