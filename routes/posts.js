@@ -6,6 +6,8 @@ router.post("/", async (request, response) => {
   const post = new Post(request.body); // create the instance of new post..
   /// Save the post..
   try {
+    console.log("[INFO] Post: ", post)
+    console.log("[INFO] request.body.filename: ", request.body.filename)
     const savedPost = await post.save();
     console.log("[SUCCESS] Post created successfully.");
     response.status(200).json(savedPost);
@@ -23,6 +25,7 @@ router.post("/", async (request, response) => {
 router.put("/:id", async (request, response) => {
   // Small validation..
   try {
+    console.log("[INFO] id: ", request.params.id);
     const post = await Post.findById(request.params.id);
     if (post.username === request.body.username) {
       try {

@@ -39,6 +39,7 @@ router.post("/login", async (request, response) => {
         const validationStatus = bcrypt.compare(request.body.password, userCredentials.password);
         !validationStatus && response.status(400).json("Incorrect credentials, Please try again.!")
 
+        console.log("[INFO] user login request served successfully.")
         // On successful password validation..
         // Pullout the password (Preventing the password to be leaked outside..)
         const {password, ...otherDetails} = userCredentials._doc
@@ -46,7 +47,7 @@ router.post("/login", async (request, response) => {
     }
     catch (error) {
         console.log("[ERROR] Login failed. Error: " + error);
-        response.send(500).json()
+        response.status(500).json()
     }
 })
 

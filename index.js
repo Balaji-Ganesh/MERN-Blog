@@ -4,6 +4,7 @@ const dotenv = require("dotenv");
 dotenv.config();
 const mongoose = require("mongoose");
 const multer = require("multer");
+const path = require("path");
 
 // Importing routes//
 const authenticationRoutes = require("./routes/authentication");
@@ -14,6 +15,7 @@ const categoryRoutes = require("./routes/categories");
 /** Few configurations.. */
 const app = express(); /// Make the application to use express..
 app.use(express.json()); // For handling JSON by type..
+app.use("/assets/images", express.static(path.join(__dirname, "/assets/images"))); // to set the images folder public..
 
 /** ----------------------------------- Connection to database -------------------------------- **/
 mongoose
@@ -21,6 +23,7 @@ mongoose
     useNewUrlParser: true,
     useUnifiedTopology: true,
     //useCreateIndex: true, -- getting error if included. But, Tutorial mentions, presence of this line.
+    //useFindAndModify: true // if getting deprecation warning..
   })
   .then(console.log("[SUCCESS] Database connection successful"))
   .catch((error) =>
@@ -42,10 +45,10 @@ app.use("/api/category", categoryRoutes);
 /** -------------------------------- Uploading images to the server ----------------------------- */
 const storage = multer.diskStorage({
   destination: (request, file, callbackFn) => {
-    callbackFn(null, "images"); // The path, where the images has to be placed..
+    callbackFn(null, "assets/images"); // The path, where the images has to be placed..
   },
   filename: (request, file, callbackFn) => {
-    callbackFn(null, "somename.jpg");
+    callbackFn(null, request.body.filename);
   },
 });
 

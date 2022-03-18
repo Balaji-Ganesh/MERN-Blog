@@ -41,12 +41,18 @@ router.put("/:id", async (request, response) => {
 // Deletion....
 router.delete("/:id", async (request, response) => {
   // When one tried to delete with different userId..
-  if (request.body.userId === request.params.id) {
+  console.log("{INFO] request.params.id: ", request.params.id);
+  // if such user exists..  this is a very loose authentication, need somewhat stronger.. a simple DELETE request with this address, deletes a user..
+  const user = await User.findById(request.params.id);
+
+  //console.log(user._id.toString())
+  if (user._id.toString() === request.params.id) {
     try {
       // First, remove the respective posts of the user..
       // Get the user name (from userId)..
-      const user = User.findById(request.body.userId);
+      //const user = User.findById(request.body.userId);
       Post.deleteMany({ username: user.username });
+      console.info("[INFO] posts of user deleted.")
       // Then, delete the user..
       try {
         await User.findByIdAndDelete(request.params.id);
