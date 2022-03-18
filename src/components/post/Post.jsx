@@ -3,10 +3,11 @@ import { Link } from "react-router-dom";
 import "./post.css";
 
 export default function Post({ post }) {
+  const PUBLIC_FOLDER = "localhost:4000/assets/images"
   return (
     <div className="post">
       {post.photoUrl && (
-        <img className="post-image" src={post.photoUrl} alt="Post image"></img>
+        <img className="post-image" src={PUBLIC_FOLDER+post.photoUrl} alt="Post image"></img>
       )}
       <div className="post-info">
         <div className="post-categories">

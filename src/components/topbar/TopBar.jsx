@@ -1,9 +1,16 @@
-import React from "react";
+import React, {useContext} from "react";
 import { Link } from "react-router-dom";
+import {Context} from "../../context/Context";
 import "./topbar.css";
 
 export default function TopBar() {
-  const userLoginStatus = false;
+  //const userLoginStatus = false;
+  const { user, dispatch } = useContext(Context); // may be it should be named as userLoginStatus..??
+  
+  const handleLogout = () => {
+    dispatch({type: "LOGOUT"})
+  }
+
   return (
     <div className="topBar">
       <div className="topLeft">
@@ -30,12 +37,12 @@ export default function TopBar() {
               Write
             </Link>
           </li>
-          <li className="item">{userLoginStatus && "Logout"}</li>{" "}
+          <li className="item" onClick={handleLogout}>{user && "Logout"}</li>{" "}
           {/* Try placing this in the profile image with a hover box, like github*/}
         </ul>
       </div>
       <div className="topRight">
-        {userLoginStatus ? (
+        {user ? (
           <Link to="/userSettings" className="link">
             <img
               className="profileImage"

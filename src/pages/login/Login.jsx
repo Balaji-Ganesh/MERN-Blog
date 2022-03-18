@@ -8,7 +8,7 @@ import "./login.css";
 export default function Login() {
   const usernameRef = useRef(); // because of using this, doesn't need the `onChange`.
   const passwordRef = useRef();
-  const { user, dispatch, isFetching } = useContext(Context);
+  const { userCredentials, dispatch, isFetching } = useContext(Context);
 
   const handleLogin = async (e) => {
     e.preventDefault();
@@ -20,14 +20,16 @@ export default function Login() {
         username: usernameRef.current.value,
         password: passwordRef.current.value,
       });
+      console.log("[INFO] user login success, response: ", response)
       // after could able to fetch the details properly, without any errors.. update the status + place the payload....
       dispatch({ type: "LOGIN_SUCCESS", payload: response });
+      console.log("[INFO] user login status: ", userCredentials.data); // we'll get this(user) from index.js..
     } catch (error) {
       dispatch({ type: "LOGIN_FAILURE" });
       console.error("[ERROR] An error occured in fetching the data.");
     }
   };
-  console.log(user); // we'll get this(user) from index.js..
+  // console.log("[INFO] user login status: ", user.data); // we'll get this(user) from index.js..
 
   return (
     <div className="wrapper">
@@ -53,9 +55,9 @@ export default function Login() {
               ref={passwordRef}
             />
           </div>
-          <input type="submit" value="Login" className="btnLogin" />
+          <input type="submit" value="Login" className="btnLogin" disabled={isFetching}/>
         </form>
-        <button className="btnRegister">
+        <button className="btnRegister" disabled={isFetching}>
           <Link className="link" to="/register">
             Register
           </Link>

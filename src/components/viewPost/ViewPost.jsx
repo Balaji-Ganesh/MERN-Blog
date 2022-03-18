@@ -23,12 +23,14 @@ export default function ViewPost() {
     fetchPost();
   }, [postId]); // this is must, else going into loop..
 
+  // for accessing the images..
+  const PUBLIC_FOLDER = "localhost:4000/assets/images";
   return (
     <div className="viewPost">
       <div className="postInfo">
         {post.photoUrl && (
           <img
-            src={post.photoUrl}
+            src={PUBLIC_FOLDER + post.photo}
             alt="View post image"
             className="viewPost-image"
           />
@@ -43,7 +45,7 @@ export default function ViewPost() {
         <div className="postMetaInfo">
           <div className="postAuthor">
             Author:
-            <Link to={`/?user=${post.username}`} className = "link">
+            <Link to={`/?user=${post.username}`} className="link">
               <b>{post.username}</b>
             </Link>
           </div>
