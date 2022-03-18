@@ -67,10 +67,11 @@
   background-color: rgba(1, 149, 0, 0.8);
   /* border: 1px solid green; */
 }
-.btnRegister:disabled {
-  cursor: not-allowed;
-  background-color: red;
-} 
+.userLogin .btnLogin:disabled{
+  background-color: coral;
+  cursor:not-allowed;
+}
+
 
 .userLogin .btnRegister {
   position: absolute;

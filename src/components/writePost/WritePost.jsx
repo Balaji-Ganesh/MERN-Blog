@@ -1,44 +1,51 @@
-import React, { useState, useContext } from "react";
-import axios from "axios";
-import { Context } from "../../context/Context";
+import React, { useContext, useState } from "react";
 import "./writePost.css";
+import axios from "axios";
+import Post from "../post/Post";
+import Context from "../../context/Context";
 
 export default function WritePost() {
-  // for dealing with post writing..
-  const [title, setTitle] = useState();
-  const [description, setDescription] = useState();
+  // writing the post..
+  const [postTitle, setPostTitle] = useState("");
+  const [postDescription, setPostDescription] = useState("");
   const [postBanner, setPostBanner] = useState(null);
+
+  /** publish the post.. **/
+  // Get details.. who is publishing the post..
   const { userCredentials } = useContext(Context);
-
-  // handle the publishing of post..
-  const handlePublish = async (e) => {
-    e.preventDefault();
-
-    // Create the post..
+  // now handle it..
+  const handlePublishPost = async (evnt) => {
+    evnt.preventDefault(); // prevent itself from loading..
+    // create the post..
     const newPost = {
-      username: userCredentials.username,
-      title,
-      description,
+      title: postTitle,
+      description: postDescription,
+      username: userCredentials.data.username,
+      postBannerFilename: postBanner,
     };
-    // // Publish the post //
-    // for post-banner..
+    // upload the post banner..
     if (postBanner) {
       const data = new FormData();
-      const filename = Date.now() + postBanner.name; // to give a unique name..
-      data.append("filename", filename);
+      const filename = Date.now() + "_" + postBanner.name; // Why Date.now() ..?? to prevent from errors, when two users store the same FILENAMEd image...
+      data.append("filename", filename); // "filename" .. must also be same at server.. request.body.""filename""
       data.append("file", postBanner);
+      newPost.postBannerFilename = filename; // attach the name to the "post"..
+      // upload to server..
       try {
         await axios.post("/upload", data);
-      } catch (err) {
-        console.error("[ERROR] Error in uploading the post banner");
+      } catch (error) {
+        console.error("[ERROR] Unable to upload the post banner. Err: ", error);
       }
     }
-    // Post it..
+    // upload the rest of the post details..
     try {
+      console.info("[INFO] final post created is: ", newPost);
       const response = await axios.post("/posts/", newPost);
-      // When could successfully able to publish the post.. display that post..
+      // upon successful publishing of post, re-direct to the uploaded post..
       window.location.replace("/post/" + response.data._id);
-    } catch (error) {}
+    } catch (error) {
+      console.error("[ERROR] Unable to publish post. Err: ", error);
+    }
   };
 
   return (
@@ -51,7 +58,7 @@ export default function WritePost() {
           title="Cover photo"
         />
       )}
-      <form className="form-writePost" onSubmit={handlePublish}>
+      <form className="form-writePost" onSubmit={handlePublishPost}>
         <div className="writePostGroup1">
           <label htmlFor="fileInput">
             <i
@@ -63,8 +70,11 @@ export default function WritePost() {
             type="file"
             id="fileInput"
             className="fileUpload"
-            onChange={(evnt) => setPostBanner(evnt.target.files[0])} // single file...
+            onChange={
+              (evnt) => setPostBanner(evnt.target.files[0]) // first file..
+            }
             style={{ display: "none" }}
+            required={true}
           />
           <input
             type="text"
@@ -74,7 +84,8 @@ export default function WritePost() {
             autoCapitalize={"true"}
             name="postTitle"
             title="Enter title of blog"
-            onChange={(evnt) => setTitle(evnt.target.value)}
+            onChange={(evnt) => setPostTitle(evnt.target.value)}
+            required={true}
           />
         </div>
 
@@ -84,15 +95,16 @@ export default function WritePost() {
             type="text"
             placeholder="Write description of post here.."
             title="Enter description of blog"
-            onChange={(evnt) => setDescription(evnt.target.value)}
+            onChange={(evnt) => setPostDescription(evnt.target.value)}
+            required={true}
           ></textarea>
         </div>
         <button
           className="btnSubmitPost"
-          title="Create a new post"
           type="submit"
+          title="Create a new post"
         >
-          Publish Post
+          Submit Post
         </button>
       </form>
     </div>

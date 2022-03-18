@@ -1,15 +1,16 @@
-import React, {useContext} from "react";
+import React, { useContext } from "react";
 import { Link } from "react-router-dom";
-import {Context} from "../../context/Context";
+import { Context } from "../../context/Context";
 import "./topbar.css";
 
 export default function TopBar() {
-  //const userLoginStatus = false;
-  const { user, dispatch } = useContext(Context); // may be it should be named as userLoginStatus..??
-  
+  //const userLoginStatus = false; -- used for testing..
+  const { userCredentials, dispatch } = useContext(Context);
+  console.log("[INFO] in login.jsx",userCredentials)
+  // handling logout..
   const handleLogout = () => {
-    dispatch({type: "LOGOUT"})
-  }
+    dispatch({ type: "LOGOUT" });
+  };
 
   return (
     <div className="topBar">
@@ -37,17 +38,19 @@ export default function TopBar() {
               Write
             </Link>
           </li>
-          <li className="item" onClick={handleLogout}>{user && "Logout"}</li>{" "}
+          <li className="item" onClick={handleLogout}>
+            {userCredentials && "Logout"}
+          </li>{" "}
           {/* Try placing this in the profile image with a hover box, like github*/}
         </ul>
       </div>
       <div className="topRight">
-        {user ? (
+        {userCredentials ? (
           <Link to="/userSettings" className="link">
             <img
               className="profileImage"
-              src="https://images.pexels.com/photos/220453/pexels-photo-220453.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500"
-              alt="Profile Image"
+              src={userCredentials.data.profilePicture}
+              alt="Profile Picture"
             ></img>
           </Link>
         ) : (

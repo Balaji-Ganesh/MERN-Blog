@@ -1,7 +1,7 @@
 import axios from "axios";
 import React from "react";
 import { useRef, useContext } from "react";
-import Context from "../../context/Context";
+import { Context } from "../../context/Context";
 import { Link } from "react-router-dom";
 import "./login.css";
 
@@ -20,16 +20,14 @@ export default function Login() {
         username: usernameRef.current.value,
         password: passwordRef.current.value,
       });
-      console.log("[INFO] user login success, response: ", response)
       // after could able to fetch the details properly, without any errors.. update the status + place the payload....
       dispatch({ type: "LOGIN_SUCCESS", payload: response });
-      console.log("[INFO] user login status: ", userCredentials.data); // we'll get this(user) from index.js..
     } catch (error) {
       dispatch({ type: "LOGIN_FAILURE" });
       console.error("[ERROR] An error occured in fetching the data.");
     }
   };
-  // console.log("[INFO] user login status: ", user.data); // we'll get this(user) from index.js..
+  console.log(isFetching); // we'll get this(user) from index.js..
 
   return (
     <div className="wrapper">
@@ -55,9 +53,10 @@ export default function Login() {
               ref={passwordRef}
             />
           </div>
-          <input type="submit" value="Login" className="btnLogin" disabled={isFetching}/>
+          <input type="submit" value="Login" className="btnLogin" disabled={isFetching} // prevents clicking again and again, while already in fetching..
+          />
         </form>
-        <button className="btnRegister" disabled={isFetching}>
+        <button className="btnRegister">
           <Link className="link" to="/register">
             Register
           </Link>
