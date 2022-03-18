@@ -26,6 +26,24 @@ const Reducer = (state, action) => {
         isFetching: false, // as fetching completed.
         error: false, // as fetching failed, because of some error.
       };
+    case "UPDATE_START":
+      return {
+        ...state,
+        isFetching: true, // as still fetching the details..
+        
+      };
+    case "UPDATE_SUCCESS":
+      return {
+        userCredentials: action.payload, // as fetching gave some payload of data.
+        isFetching: false, // as fetching finished..
+        error: false, // as fetching, ended with no-errors..
+      };
+    case "UPDATE_FAILURE":
+      return {
+        userCredentials: null, // as fetcing gave no data, because of some error..
+        isFetching: false, // as fetching completed.
+        error: true, // as fetching failed, because of some error.
+      };
   }
 };
 

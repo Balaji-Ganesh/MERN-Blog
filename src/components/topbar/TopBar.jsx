@@ -2,16 +2,23 @@ import React, { useContext } from "react";
 import { Link } from "react-router-dom";
 import { Context } from "../../context/Context";
 import "./topbar.css";
+// import dotenv from "dotenv";
+// dotenv.config();
+
 
 export default function TopBar() {
   //const userLoginStatus = false; -- used for testing..
   const { userCredentials, dispatch } = useContext(Context);
-  console.log("[INFO] in login.jsx",userCredentials)
+  console.log("[INFO] in login.jsx", userCredentials);
   // handling logout..
   const handleLogout = () => {
-    dispatch({ type: "LOGOUT" });
+    dispatch({ type: "LOGOUT" }); // update the state -- goes to logout state..
+    localStorage.removeItem("userLoginDetails");  // remove from the localStorage too..
+    window.location.replace("/"); // navigate to home-page..
   };
 
+  // for profile picture....
+  const PUBLIC_FOLDER = "http://localhost:4000/assets/images/";
   return (
     <div className="topBar">
       <div className="topLeft">
@@ -40,7 +47,7 @@ export default function TopBar() {
           </li>
           <li className="item" onClick={handleLogout}>
             {userCredentials && "Logout"}
-          </li>{" "}
+          </li>
           {/* Try placing this in the profile image with a hover box, like github*/}
         </ul>
       </div>
@@ -49,8 +56,14 @@ export default function TopBar() {
           <Link to="/userSettings" className="link">
             <img
               className="profileImage"
-              src={userCredentials.data.profilePicture}
+              src={
+                (userCredentials &&
+                  PUBLIC_FOLDER +
+                    userCredentials.data.profilePicture) || // actual image..
+                "https://cdn-icons-png.flaticon.com/512/3135/3135715.png" // default image..
+              }
               alt="Profile Picture"
+              title={`Open ${userCredentials.data.username}'s settings`}
             ></img>
           </Link>
         ) : (

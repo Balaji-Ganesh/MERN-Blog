@@ -33,3 +33,5 @@
   3. When **either** details are incorrect or some issue at server, failure. Now we set the `error` to `true`.
 - All these actions are **LISTED** in `Actions.js`.
 - The states are updated based on `Action.js` in `Reducer.js`
+
+Also check the SERVER's `notes.md`.

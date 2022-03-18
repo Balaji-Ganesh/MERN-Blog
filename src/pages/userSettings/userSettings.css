@@ -108,3 +108,17 @@
 .userDetails .submitForm:hover{
     background-color: rgb(5, 202, 5);
 }
+
+
+/* ------------------------ In Edit mode..----------------------*/
+.settings-username, .settings-email, .settings-password{
+    font-weight: 700;
+    border-bottom: 1px solid #999;
+    padding-left: 10px;
+    color: gray;
+    cursor: not-allowed;
+}
+.settings-password{
+    border: none;
+    border-bottom: 1px solid #999;
+}

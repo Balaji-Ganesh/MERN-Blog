@@ -4,6 +4,9 @@ import axios from "axios";
 import { Link } from "react-router-dom";
 import "./viewPost.css";
 import Context from "../../context/Context";
+// import dotenv from "dotenv";
+// dotenv.config();
+// process.env.PUBLIC_FOLDER;
 
 export default function ViewPost() {
   const location = useLocation(); // to know the path (by -self..!!)
@@ -15,12 +18,20 @@ export default function ViewPost() {
 
   // for showing option of editing.. if its the author who is viewing -> Allow, else not.
   const { userCredentials } = useContext(Context);
+  // For edit-mode..
+  const [postTitle, setPostTitle] = useState("");
+  const [postDescription, setPostDescription] = useState("");
+  const [isEditMode, setIsEditMode] = useState(false);
 
   useEffect(() => {
     const fetchPost = async () => {
       const retrievedPost = await axios.get("/posts/" + postId);
       setPost(retrievedPost.data);
       console.log(retrievedPost.data);
+      // set the data for editing..
+      setPostTitle(retrievedPost.data.title);
+      setPostDescription(retrievedPost.data.description);
+      setIsEditMode(false);
     };
 
     // make a call..
@@ -28,7 +39,35 @@ export default function ViewPost() {
   }, [postId]); // this is must, else going into loop..
 
   /* various helping handlers....*/
-  const handlePostEdit = async (evnt) => {};
+  const toggleEditMode = async () => {
+    //evnt.preventDefault();
+    // isEditMode ? setIsEditMode(false) : setIsEditMode(true); // toggle between edits..
+    // handlePostUpdate(); // update after editing switches..
+    setIsEditMode(true);
+  };
+
+  const handlePostUpdate = async () => {
+    //evnt.preventDefault();
+    // create the update post..
+    //const updatedPost = ;
+    console.log("[INFO] Updated post: ");
+    // Peform update..
+    try {
+      await axios.put(`/posts/${postId}`, {
+        username: userCredentials.data.username,
+        title: postTitle,
+        description: postDescription,
+      });
+      console.info("[INFO] Post updated successfully.!!");
+      // re-load to display the updated post..
+      //window.location.reload();
+    } catch (error) {
+      console.error("[ERROR] Post updation error. Err: ", error);
+    }
+
+    // as done with editing.. turn off the edit mode..
+    setIsEditMode(false);
+  };
 
   const handlePostDelete = async (evnt) => {
     try {
@@ -44,7 +83,7 @@ export default function ViewPost() {
 
   // main location of photos..
   const PUBLIC_FOLDER = "http://localhost:4000/assets/images/";
-  console.info("[INFO] post banner: ", post.postBannerFilename);
+  //console.info("[INFO] post banner: ", post.postBannerFilename);
   return (
     <div className="viewPost">
       <div className="postInfo">
@@ -56,17 +95,43 @@ export default function ViewPost() {
           />
         )}
         <div className="postTitle">
-          {post.title}
+          {isEditMode ? (
+            <>
+              {/* -----------When in edit mode.. -----------*/}
+              <input
+                type="text"
+                className="editmode-title"
+                placeholder="Enter blog title here.."
+                autoFocus={true}
+                autoCapitalize={"true"}
+                name="postTitle"
+                autoFocus
+                title="Enter the new title of post"
+                value={postTitle}
+                onChange={(evnt) => {
+                  setPostTitle(evnt.target.value);
+                  console.log(postTitle);
+                }}
+              />
+            </>
+          ) : (
+            <>
+              {/* -----------When not in edit mode.. -----------*/}
+              {postTitle}
+            </>
+          )}
           {/** Only if its the author who is viewing, allow these options.. "?" is used to handle, when no user is logged in. i.e., even without login, can view posts, but can't edit*/}
           {post.username === userCredentials?.data.username && (
             <div className="postEdit">
               <i
                 className="postEdit-icon fa-solid fa-pen-to-square"
-                onClick={handlePostEdit}
+                onClick={toggleEditMode}
+                title={isEditMode ? "Switch Editing OFF" : "Switch Editing ON"}
               ></i>
               <i
                 className="postEdit-icon fa-solid fa-trash-can"
                 onClick={handlePostDelete}
+                title="Delete Post"
               ></i>
             </div>
           )}
@@ -84,7 +149,31 @@ export default function ViewPost() {
         </div>
       </div>
       <div className="postContent">
-        <p>{post.description}</p>
+        <p>
+          {isEditMode ? (
+            <>
+              {/* -----------When in edit mode.. -----------*/}
+              <textarea
+                className="editmode-postDescription"
+                type="text"
+                value={postDescription}
+                title="Enter description of blog"
+                onChange={(evnt) => setPostDescription(evnt.target.value)}
+                // required={true}
+              ></textarea>
+            </>
+          ) : (
+            <>
+              {/* -----------When not in edit mode.. -----------*/}
+              {postDescription}
+            </>
+          )}
+        </p>
+        {isEditMode && (
+          <button className="editmode-btnUpdatePost" onClick={handlePostUpdate}>
+            Update Post
+          </button>
+        )}
       </div>
     </div>
   );

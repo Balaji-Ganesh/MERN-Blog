@@ -1,59 +1,96 @@
-.viewPost{
-    flex: 9;
+.viewPost {
+  flex: 9;
 }
 
-.viewPost-image{
-    width: 100%;
-    height: 250px;
-    object-fit: cover;
-    margin: 10px;
-    border-radius: 5px;
+.viewPost-image {
+  width: 100%;
+  height: 250px;
+  object-fit: cover;
+  margin: 10px;
+  border-radius: 5px;
 }
 
-.postTitle{
-    font-family: 'Lora', 'sans-serif';
-    font-size: 20px;
-    text-align: center;
-    
+.postTitle {
+  font-family: "Lora", "sans-serif";
+  font-size: 20px;
+  text-align: center;
 }
 
-.postEdit{
-    float: right;
-    font-size: 16px;
-
+.postEdit {
+  float: right;
+  font-size: 16px;
 }
-.postEdit .postEdit-icon{
+.postEdit .postEdit-icon {
+  cursor: pointer;
+  margin-left: 15px;
+}
+
+.postEdit .postEdit-icon:first-child {
+  color: teal;
+}
+
+.postEdit .postEdit-icon:last-child {
+  color: tomato;
+}
+
+.postMetaInfo {
+  margin-bottom: 20px;
+  display: flex;
+  justify-content: space-between;
+  font-size: 16px;
+  color: #b49656;
+  font-family: "Varela", "sans-serif";
+}
+
+.postContent {
+  color: #666;
+  font-size: 18px; /*16 woule be good*/
+  line-height: 25px;
+}
+
+.postContent::first-letter {
+  margin-left: 20px;
+  font-size: 30px;
+  font-weight: 600;
+  color: red;
+}
+
+/** ---------------------- In edit mode..!! taken from writePost.jsx -----------------------*/
+.editmode-title {
+  border: none;
+  font-size: 30px;
+  padding-left: 20px;
+  width: 70vw;
+  color: #888; /* To show some variation in edit-mode..*/
+}
+.editmode-title:focus {
+  outline: none;
+}
+.editmode-postDescription {
+  margin-top: 20px;
+  font-size: 20px;
+  border: none;
+  width: 70vw;
+  color: #888; /* To show some variation in edit-mode..*/
+}
+
+.editmode-postDescription:focus {
+  outline: none;
+}
+
+.editmode-btnUpdatePost{
+    background-color: teal;
+    padding: 10px;
+    border-radius: 8px;
+    border: none;
+    color: white;
+    margin-top:20px;
+    margin-left: 40px;
+    align-self: flex-end;
     cursor: pointer;
-    margin-left: 15px;
 }
 
-.postEdit .postEdit-icon:first-child{
-    color: teal;
+.editmode-btnUpdatePost:hover{
+    background-color: rgb(88, 189, 189);
+    /* box-shadow: 1cm black */
 }
-
-.postEdit .postEdit-icon:last-child{
-    color: tomato;
-}
-
-.postMetaInfo{
-    margin-bottom: 20px;
-    display: flex;
-    justify-content: space-between;
-    font-size: 16px;
-    color: #b49656;
-    font-family: 'Varela', 'sans-serif';
-}
-
-.postContent{
-    color: #666;
-    font-size: 18px; /*16 woule be good*/
-    line-height: 25px;
-}
-
-.postContent::first-letter{
-    margin-left: 20px;
-    font-size: 30px;
-    font-weight: 600;
-    color: red;
-}
-
