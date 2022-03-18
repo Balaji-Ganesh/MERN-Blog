@@ -1,0 +1,12 @@
+
+.home {
+  display: flex;
+  flex-direction: column;
+  /* top:0; */
+}
+
+.content{
+  display: flex;
+  flex-direction: row;
+  /* bottom: 0; */
+}

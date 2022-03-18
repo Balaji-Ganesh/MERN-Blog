@@ -1,0 +1,85 @@
+.wrapper {
+  height: calc(100vh - 50px);
+  /* height: inherit; */
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  background: linear-gradient(
+      rgba(251, 251, 238, 0.3),
+      rgba(208, 253, 139, 0.3)
+    ),
+    url("https://images.pexels.com/photos/904616/pexels-photo-904616.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1");
+  background-size: cover;
+}
+
+.userRegister {
+  height: fit-content;
+  background-color: rgba(250, 236, 217, 0.5);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding: 40px 20px;
+  border-radius: 10px;
+  border: 1px solid rgba(255, 204, 132, 0.8);
+}
+
+.userRegister .registrationForm {
+  /* align-items: center; */
+}
+
+.userRegister .title {
+  font-size: 30px;
+  margin-bottom: 10px;
+}
+
+.userRegister .item {
+  display: flex;
+  justify-content: space-between;
+  margin: 10px;
+}
+
+.item input {
+  border: none;
+  border-bottom: 1px solid;
+  background-color: transparent;
+  margin-left: 10px;
+}
+
+.item input:focus {
+  outline: none;
+  /* background-color: antiquewhite; */
+}
+
+.userRegister .btnRegister {
+  align-self: center;
+  margin: 5px 10px;
+  background-color: green;
+  border: none;
+  border-radius: 5px;
+  padding: 5px;
+  cursor: pointer;
+  color: white;
+}
+.userRegister .btnRegister:hover {
+  background-color: rgba(1, 149, 0, 0.8);
+  /* border: 1px solid green; */
+}
+
+.userRegister .btnLogin {
+  position: absolute;
+  top: calc(50px + 20px);
+  right: 50px;
+  background-color: blueviolet;
+  border: none;
+  color: white;
+  padding: 5px 10px;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.userRegister .btnLogin:hover {
+  background-color: rgba(142, 44, 226, 0.8);
+}
